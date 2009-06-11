@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name = 'tagging',
-    version = version,
+    version = '0.1',
     description = 'Generic favorites application for Django',
     author = 'Andrew Gwozdziewycz',
     author_email = 'hg@apgwoz.com',
