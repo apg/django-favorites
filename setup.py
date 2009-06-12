@@ -1,7 +1,7 @@
 from distutils.core import setup
 
 setup(
-    name = 'tagging',
+    name = 'favorites',
     version = '0.1',
     description = 'Generic favorites application for Django',
     author = 'Andrew Gwozdziewycz',
