@@ -5,7 +5,7 @@ setup(
     version = '0.1',
     description = 'Generic favorites application for Django',
     author = 'Andrew Gwozdziewycz',
-    author_email = 'hg@apgwoz.com',
+    author_email = 'git@apgwoz.com',
     packages = ['favorites'],
     classifiers = ['Development Status :: 4 - Beta',
                    'Environment :: Web Environment',
