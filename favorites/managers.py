@@ -12,6 +12,7 @@ class FavoritesManagerMixin(object):
         """ Adds a column favorite__favorite to the returned object, which
         indicates whether or not this item is a favorite for a user
         """
+        Favorite = models.get_model('favorites', 'Favorite')
         content_type = ContentType.objects.get_for_model(self.model)
         pk_field = "%s.%s" % (qn(self.model._meta.db_table),
                               qn(self.model._meta.pk.column))
@@ -34,5 +35,4 @@ WHERE %(favorites_db_table)s.object_id = %(pk_field)s and
         if not all:
             extras['where'] = ['favorite__favorite == 1']
 
-        return self.extra(**extras)
-
+        return self.get_query_set().extra(**extras)

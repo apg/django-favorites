@@ -13,20 +13,35 @@ class FavoriteManager(models.Manager):
         """
         return self.get_query_set().filter(user=user)
     
-    def favorites_for_model(self, model):
+    def favorites_for_model(self, model, user=None):
         """ Returns Favorites for a specific model
         """
         content_type = ContentType.objects.get_for_model(model)
-        return self.filter(content_type=content_type)
+        qs = self.get_query_set().filter(content_type=content_type)
+        if user:
+            qs = qs.filter(user=user)
+        return qs
 
-    def favorites_for_object(self, obj):
+    def favorites_for_object(self, obj, user=None):
         """ Returns Favorites for a specific object
         """
         content_type = ContentType.objects.get_for_model(type(obj))
-        return self.filter(content_type=content_type, object_id=obj.pk)
+        qs = self.get_query_set().filter(content_type=content_type, 
+                                         object_id=obj.pk)
+        if user:
+            qs = qs.filter(user=user)
 
+        return qs
+
+    def favorite_for_user(self, obj, user):
+        """Returns the favorite, if exists for obj by user
+        """
+        content_type = ContentType.objects.get_for_model(type(obj))
+        return self.get_query_set().get(content_type=content_type,
+                                        object_id=obj.pk)
+    
     @classmethod
-    def create_favorite(cls, user, content_object):
+    def create_favorite(cls, content_object, user):
         content_type = ContentType.objects.get_for_model(type(content_object))
         favorite = Favorite(
             user=user,
@@ -54,6 +69,3 @@ class Favorite(models.Model):
     
     def __unicode__(self):
         return "%s likes %s" % (self.user, self.content_object)
-
-
-
