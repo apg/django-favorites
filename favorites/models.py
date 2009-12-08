@@ -55,7 +55,7 @@ class FavoriteManager(models.Manager):
 class Favorite(models.Model):
     user = models.ForeignKey(User)
     content_type = models.ForeignKey(ContentType)
-    object_id = models.IntegerField()
+    object_id = models.PositiveIntegerField()
     content_object = generic.GenericForeignKey('content_type', 'object_id')
 
     created_on = models.DateTimeField(auto_now_add=True)
